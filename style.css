@@ -239,4 +239,243 @@ body {
 
 .stage-popup button:hover {
     background-color: #000000;
+}
+
+/* Mobile Touch Controls */
+.mobile-controls {
+    display: none; /* Hidden on desktop */
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0 20px;
+    pointer-events: none;
+}
+
+.mobile-controls > div {
+    pointer-events: auto;
+}
+
+.left-controls {
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.center-controls {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+}
+
+.right-controls {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+}
+
+.control-btn {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    touch-action: manipulation;
+    transition: all 0.1s ease;
+}
+
+.jump-btn {
+    width: 80px;
+    height: 80px;
+    font-size: 14px;
+    border-radius: 50%;
+}
+
+.control-btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    .mobile-controls {
+        display: block !important;
+    }
+    
+    body {
+        overflow-x: hidden;
+    }
+    
+    .game-container {
+        padding: 10px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    
+    #gameCanvas {
+        max-width: 95vw;
+        max-height: 50vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border: 1px solid #ddd;
+    }
+    
+    .game-info {
+        margin: 10px 0;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .score {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    /* Mobile popup optimization */
+    .stage-popup {
+        padding: 10px;
+        max-width: 90vw;
+        max-height: 70vh;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+    
+    .stage-content {
+        padding: 15px;
+    }
+    
+    .character-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .character-preview {
+        width: 80px;
+        height: 80px;
+        align-self: center;
+    }
+    
+    .character-desc h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    
+    .character-desc p {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    
+    .stage-content button {
+        padding: 12px 24px;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+    
+    /* Game over screen mobile */
+    .game-over {
+        max-width: 90vw;
+        padding: 20px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    .game-over h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .game-over p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .game-over button {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+    
+    /* Opening screen mobile */
+    .opening-screen {
+        padding: 10px;
+    }
+    
+    #openingVideo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+    }
+    
+    .button-container {
+        bottom: -50px;
+        gap: 15px;
+    }
+    
+    .play-button,
+    .start-button {
+        padding: 15px 60px;
+        font-size: 12px;
+    }
+}
+
+/* Mobile Portrait Mode */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+    #gameCanvas {
+        max-height: 40vh;
+        max-width: 90vw;
+    }
+    
+    .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+    }
+    
+    .jump-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 12px;
+    }
+    
+    .mobile-controls {
+        bottom: 15px;
+        padding: 0 15px;
+    }
+    
+    .left-controls,
+    .right-controls {
+        bottom: 0;
+    }
+    
+    .left-controls {
+        left: 15px;
+    }
+    
+    .right-controls {
+        right: 15px;
+    }
+    
+    .stage-popup {
+        max-height: 80vh;
+        font-size: 14px;
+    }
+    
+    .character-preview {
+        width: 60px;
+        height: 60px;
+    }
 } 

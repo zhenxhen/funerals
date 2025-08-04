@@ -60,12 +60,26 @@
         </div>
     </div>
 
-    <div class="game-container" id="gameContainer" style="display: none;">
-        <div class="game-overlay" id="gameOverlay"></div>
-        <canvas id="gameCanvas" width="800" height="200"></canvas>
-        <div class="game-info">
-            <div class="score">Score: <span id="score">0</span></div>
-        </div>
+            <div class="game-container" id="gameContainer" style="display: none;">
+            <div class="game-overlay" id="gameOverlay"></div>
+            <canvas id="gameCanvas" width="800" height="200"></canvas>
+            <div class="game-info">
+                <div class="score">Score: <span id="score">0</span></div>
+            </div>
+            
+            <!-- Mobile Touch Controls -->
+            <div class="mobile-controls" id="mobileControls">
+                <div class="left-controls">
+                    <button class="control-btn left-btn" id="leftBtn">←</button>
+                    <button class="control-btn right-btn" id="rightBtn">→</button>
+                </div>
+                <div class="center-controls">
+                    <button class="control-btn jump-btn" id="jumpBtn">JUMP</button>
+                </div>
+                <div class="right-controls">
+                    <button class="control-btn duck-btn" id="duckBtn">↓</button>
+                </div>
+            </div>
         <div class="game-over" id="gameOver">
             <h2>You're extincted</h2>
             <p>Work for UAL Presessional Independent Project</p>
@@ -84,7 +98,91 @@
                 <button onclick="continueToNextStage()">Next Stage</button>
             </div>
         </div>
-    </div>
-    <script src="game.js"></script>
-</body>
+            </div>
+        <script src="game.js"></script>
+        
+        <!-- Mobile Touch Control Script -->
+        <script>
+        // Mobile touch controls - simulate keyboard events without modifying game.js
+        if (window.innerWidth <= 768) {
+            // Get control buttons
+            const leftBtn = document.getElementById('leftBtn');
+            const rightBtn = document.getElementById('rightBtn');
+            const jumpBtn = document.getElementById('jumpBtn');
+            const duckBtn = document.getElementById('duckBtn');
+            
+            // Function to create and dispatch keyboard events
+            function simulateKeyEvent(key, type) {
+                const event = new KeyboardEvent(type, {
+                    key: key,
+                    code: key === 'ArrowLeft' ? 'ArrowLeft' :
+                          key === 'ArrowRight' ? 'ArrowRight' :
+                          key === 'ArrowUp' ? 'ArrowUp' :
+                          key === 'ArrowDown' ? 'ArrowDown' :
+                          key === ' ' ? 'Space' : key,
+                    keyCode: key === 'ArrowLeft' ? 37 :
+                            key === 'ArrowRight' ? 39 :
+                            key === 'ArrowUp' ? 38 :
+                            key === 'ArrowDown' ? 40 :
+                            key === ' ' ? 32 : 0,
+                    bubbles: true
+                });
+                document.dispatchEvent(event);
+            }
+            
+            // Left button
+            leftBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                simulateKeyEvent('ArrowLeft', 'keydown');
+            });
+            leftBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                simulateKeyEvent('ArrowLeft', 'keyup');
+            });
+            
+            // Right button
+            rightBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                simulateKeyEvent('ArrowRight', 'keydown');
+            });
+            rightBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                simulateKeyEvent('ArrowRight', 'keyup');
+            });
+            
+            // Jump button (spacebar)
+            jumpBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                simulateKeyEvent(' ', 'keydown');
+            });
+            jumpBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                simulateKeyEvent(' ', 'keyup');
+            });
+            
+            // Duck button
+            duckBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                simulateKeyEvent('ArrowDown', 'keydown');
+            });
+            duckBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                simulateKeyEvent('ArrowDown', 'keyup');
+            });
+            
+            // Prevent default touch behavior
+            document.addEventListener('touchstart', (e) => {
+                if (e.target.classList.contains('control-btn')) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            document.addEventListener('touchmove', (e) => {
+                if (e.target.classList.contains('control-btn')) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        }
+        </script>
+    </body>
 </html> 
