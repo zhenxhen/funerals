@@ -1066,6 +1066,26 @@ window.addEventListener('load', () => {
     const startButton = document.getElementById('startButton');
     const playButtonContainer = document.getElementById('playButtonContainer');
     const startButtonContainer = document.getElementById('startButtonContainer');
+    const openingScreen = document.getElementById('openingScreen');
+    
+    // 히든 개발자 모드 - 10번 클릭하면 바로 게임 시작
+    let clickCount = 0;
+    openingScreen.addEventListener('click', (e) => {
+        // 버튼을 클릭한 것이 아닐 때만 카운트
+        if (!e.target.closest('button')) {
+            clickCount++;
+            if (clickCount >= 10) {
+                // 오프닝 화면 즉시 숨기기
+                openingScreen.style.display = 'none';
+                // 게임 컨테이너 표시
+                document.getElementById('gameContainer').style.display = 'block';
+                // 비디오 일시정지
+                video.pause();
+                // 게임 바로 시작
+                startGame();
+            }
+        }
+    });
     
     // 비디오 볼륨 최대로 설정
     video.volume = 1.0;
