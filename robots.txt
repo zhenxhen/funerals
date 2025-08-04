@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# 사이트맵 위치 (향후 생성 시)
+# Sitemap: https://zhenxhen.github.io/Funerals/sitemap.xml
+
+# 크롤링 지연 (초)
+Crawl-delay: 1
+
+# 디스얼로우할 디렉토리들 (필요시 추가)
+# Disallow: /admin/
+# Disallow: /private/ 

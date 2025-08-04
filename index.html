@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>extinct</title>
+    <meta name="description" content="Funeral for extinct animals">
+    <meta name="keywords" content="game, dino game, extinct animal, dodo, golden toad, human, scroll, action game, browser game">
+    <meta name="author" content="Eugene">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Extinct - Funerals for extinct animals">
+    <meta property="og:description" content="Dodo, Golden Toad, Human! Experience the 3-stage extinction crisis in a horizontal scrolling runner game. Avoid obstacles and survive!">
+    <meta property="og:image" content="https://zhenxhen.github.io/Funerals/fav/thumb.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://zhenxhen.github.io/Funerals">
+    <meta property="og:site_name" content="Funerals for extinct animals">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card 메타 태그 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Extinct - Funerals for extinct animals">
+    <meta name="twitter:description" content="Dodo, Golden Toad, Human! Experience the 3-stage extinction crisis in a horizontal scrolling runner game. Avoid obstacles and survive!">
+    <meta name="twitter:image" href="fav/thumb.png">
+    <meta name="twitter:image:alt" content="Extinct - Funerals for extinct animals">
+    
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="fav/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png">
+    <link rel="manifest" href="fav/site.webmanifest">
+    
+    <!-- 테마 색상 -->
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <!-- 추가 SEO 및 브라우저 설정 -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Extinct - Funerals for extinct animals">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 오프닝 비디오 화면 -->
+    <div class="opening-screen" id="openingScreen">
+        <video id="openingVideo">
+            <source src="video/opening.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="button-container">
+            <div class="play-button-container" id="playButtonContainer">
+                <button class="play-button" id="playButton">Play</button>
+            </div>
+            <div class="start-button-container" id="startButtonContainer">
+                <button class="start-button" id="startButton">Start</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-container" id="gameContainer" style="display: none;">
+        <div class="game-overlay" id="gameOverlay"></div>
+        <canvas id="gameCanvas" width="800" height="200"></canvas>
+        <div class="game-info">
+            <div class="score">Score: <span id="score">0</span></div>
+            <!-- <div class="instructions">스페이스바/↑키: 점프, ↓키: 웅크리기, ←→키: 좌우이동 | 3스테이지, 3목숨</div> -->
+        </div>
+        <div class="game-over" id="gameOver">
+            <h2>You're extincted</h2>
+            <p>Work for UAL Presessional Independent Project</p>
+            <!-- <p><span id="finalScore">0</span></p> -->
+            <button onclick="restartGame()">Good bye</button>
+        </div>
+        <div class="stage-popup" id="stagePopup">
+            <div class="stage-content">
+                <h2 id="stageTitle">스테이지 1 완료!</h2>
+                <div class="character-info">
+                    <img id="stageCharacterImg" src="" alt="캐릭터" class="character-preview">
+                    <div class="character-desc">
+                        <h3 id="characterName">캐릭터명</h3>
+                        <p id="characterDescription">캐릭터 설명이 여기에 표시됩니다.</p>
+                    </div>
+                </div>
+                <button onclick="continueToNextStage()">다음 스테이지</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 
