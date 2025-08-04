@@ -67,19 +67,7 @@
                 <div class="score">Score: <span id="score">0</span></div>
             </div>
             
-            <!-- Mobile Touch Controls -->
-            <div class="mobile-controls" id="mobileControls">
-                <div class="left-controls">
-                    <button class="control-btn left-btn" id="leftBtn">←</button>
-                    <button class="control-btn right-btn" id="rightBtn">→</button>
-                </div>
-                <div class="center-controls">
-                    <button class="control-btn jump-btn" id="jumpBtn">JUMP</button>
-                </div>
-                <div class="right-controls">
-                    <button class="control-btn duck-btn" id="duckBtn">↓</button>
-                </div>
-            </div>
+
         <div class="game-over" id="gameOver">
             <h2>You're extincted</h2>
             <p>Work for UAL Presessional Independent Project</p>
@@ -103,85 +91,59 @@
         
         <!-- Mobile Touch Control Script -->
         <script>
-        // Mobile touch controls - simulate keyboard events without modifying game.js
+        // Mobile touch controls - simple tap to jump for mobile devices
         if (window.innerWidth <= 768) {
-            // Get control buttons
-            const leftBtn = document.getElementById('leftBtn');
-            const rightBtn = document.getElementById('rightBtn');
-            const jumpBtn = document.getElementById('jumpBtn');
-            const duckBtn = document.getElementById('duckBtn');
+            const gameContainer = document.getElementById('gameContainer');
+            const gameOverlay = document.getElementById('gameOverlay');
             
-            // Function to create and dispatch keyboard events
-            function simulateKeyEvent(key, type) {
-                const event = new KeyboardEvent(type, {
-                    key: key,
-                    code: key === 'ArrowLeft' ? 'ArrowLeft' :
-                          key === 'ArrowRight' ? 'ArrowRight' :
-                          key === 'ArrowUp' ? 'ArrowUp' :
-                          key === 'ArrowDown' ? 'ArrowDown' :
-                          key === ' ' ? 'Space' : key,
-                    keyCode: key === 'ArrowLeft' ? 37 :
-                            key === 'ArrowRight' ? 39 :
-                            key === 'ArrowUp' ? 38 :
-                            key === 'ArrowDown' ? 40 :
-                            key === ' ' ? 32 : 0,
+            // Function to simulate spacebar press (jump)
+            function simulateJump() {
+                const spaceKeyDown = new KeyboardEvent('keydown', {
+                    key: ' ',
+                    code: 'Space',
+                    keyCode: 32,
                     bubbles: true
                 });
-                document.dispatchEvent(event);
+                const spaceKeyUp = new KeyboardEvent('keyup', {
+                    key: ' ',
+                    code: 'Space',
+                    keyCode: 32,
+                    bubbles: true
+                });
+                document.dispatchEvent(spaceKeyDown);
+                setTimeout(() => document.dispatchEvent(spaceKeyUp), 100);
             }
             
-            // Left button
-            leftBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                simulateKeyEvent('ArrowLeft', 'keydown');
-            });
-            leftBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                simulateKeyEvent('ArrowLeft', 'keyup');
-            });
-            
-            // Right button
-            rightBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                simulateKeyEvent('ArrowRight', 'keydown');
-            });
-            rightBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                simulateKeyEvent('ArrowRight', 'keyup');
-            });
-            
-            // Jump button (spacebar)
-            jumpBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                simulateKeyEvent(' ', 'keydown');
-            });
-            jumpBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                simulateKeyEvent(' ', 'keyup');
-            });
-            
-            // Duck button
-            duckBtn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                simulateKeyEvent('ArrowDown', 'keydown');
-            });
-            duckBtn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                simulateKeyEvent('ArrowDown', 'keyup');
-            });
-            
-            // Prevent default touch behavior
-            document.addEventListener('touchstart', (e) => {
-                if (e.target.classList.contains('control-btn')) {
+            // Add touch event listener to game container
+            gameContainer.addEventListener('touchstart', (e) => {
+                // Only trigger jump if not clicking on buttons or popups
+                if (!e.target.closest('button') && 
+                    !e.target.closest('.stage-popup') && 
+                    !e.target.closest('.game-over')) {
                     e.preventDefault();
+                    simulateJump();
                 }
             }, { passive: false });
             
-            document.addEventListener('touchmove', (e) => {
-                if (e.target.classList.contains('control-btn')) {
+            // Also add to game overlay for when game is paused
+            gameOverlay.addEventListener('touchstart', (e) => {
+                if (!e.target.closest('button') && 
+                    !e.target.closest('.stage-popup') && 
+                    !e.target.closest('.game-over')) {
                     e.preventDefault();
+                    simulateJump();
                 }
             }, { passive: false });
+            
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            gameContainer.addEventListener('touchend', (e) => {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
         }
         </script>
     </body>
